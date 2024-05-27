@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .main{
+        display: flex;
+        justify-content: center;
+    }
+    .boxes{
+        height: 200px;
+        width: 250px;
+        background-color: #eee;
+        margin-left: 10px;
+    }
+    .p{
+        background-color: red;
+        color: white;
+        width: 80%;
+        border-radius: 5px;
+        font-size: 20;
+        text-align: center;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <center>
+        <h1>Drag and Drop</h1>
+        <div class="main">
+            <div class="boxes">
+                <p draggable="true" class="p">1</p>
+                <p draggable="true"class="p">2</p>
+                <p draggable="true" class="p">3</p>
+                <p draggable="true" class="p">4</p>
+                <p draggable="true" class="p">5</p>
+            </div>
+            <div class="boxes"></div>
+            <div class="boxes"></div>
+            <div class="boxes"></div>
+        </div>
+    </center>
+    <script>
+        var p=document.getElementsByTagName("p")
+        var boxes=document.getElementsByClassName("boxes")
+        var dragItem=null;
+       for(var i of p){
+       i.addEventListener("dragstart",dragStart)
+       i.addEventListener("dragend",dragEnd)
+       }
+
+       for(var b of boxes){
+       b.addEventListener("dragover",dragOver)
+       b.addEventListener("dragenter",dragEnter)
+       b.addEventListener("dragleave",dragLeave)
+       b.addEventListener("drop",drop)
+       }
+       function dragStart(){
+        dragItem=this;
+        setTimeout(()=>this.style.display="none",0)
+       
+       }
+       function dragEnd(){
+        setTimeout(()=>this.style.display="block",0)
+        dragItem=this
+        
+        
+       }
+       function dragOver(e){
+        e.preventDefault()
+        this.style.boxShadow="0 0 10px black"
+        
+       }
+       function dragEnter(e){
+        e.preventDefault()
+        
+        
+       }
+       function dragLeave(){
+       this.style.boxShadow="none"
+       }
+       function drop(){
+        this.append(dragItem)
+        this.style.boxShadow='none'
+        
+       }
+    </script>
+</body>
+</html>
